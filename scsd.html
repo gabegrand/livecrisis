@@ -8,19 +8,25 @@
 <body>
     {{> slideshow }}
     <audio id="chime" src="audio/chime1.wav" preload="auto"></audio>
+    <audio id="warning" src="audio/warning1.wav" preload="auto"></audio>
     
     <div class="container">
         
         <header>
-            <h1>T.E.R.R.A. Live Crisis Updates</h1>
-            <img id="un-logo" src="terra.png">
-            
-            {{> loginButtons}}
+            <div>
+                <img id="main-logo" src="SCO_logo_medium.png">
+                <h1>Shanghai Cooperation Organization Live Crisis Updates</h1>
+            </div>
             
             {{#if currentUser}}
+            <hr>
+            Create a new live crisis update:
                 <form class="new-update">
-                    <input type="radio" name="prof_img" value="terra.png" checked="checked" /><img src="terra.png">
-                    <input type="radio" name="prof_img" value="n-news.png" /><img src="n-news.png">
+                    <input type="radio" name="prof_img" value="terra.png" checked="checked" /><img src="profimg/terra.png">
+                    <input type="radio" name="prof_img" value="n-news.png" /><img src="profimg/n-news.png">
+                    <input type="radio" name="prof_img" value="SCO_logo_small.png" /><img src="profimg/SCO_logo_small.png">
+                    <input type="radio" name="prof_img" value="nytimes.png" /><img src="profimg/nytimes.png">
+
                     <input type="text" name="text" placeholder="Type to add new update..." />
                 </form>
             {{/if}}
@@ -32,16 +38,22 @@
             {{/each}}
         </ul>
     </div>
+
+    <div id="footer">
+        {{> loginButtons}}
+    </div>
 </body>
 
 <template name="update">
-    <li id="updateBar" class="{{#if checked}}checked{{/if}}">
+    <li id="updateBar" class="{{#if checked}}checked{{/if}} {{#if highlighted}}highlighted{{/if}}">
         {{#if currentUser}}
             <button class="delete">&times;</button>
-            <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+            <input type="checkbox" checked="{{highlighted}}" class="toggle-crisis" /> Mark important
+            <input type="checkbox" checked="{{checked}}" class="toggle-checked" /> No longer relevant
+            <br><br>
         {{/if}}
         
-        <img id="news-source" src="{{prof_img}}">
+        <img id="news-source" src="profimg/{{prof_img}}">
 
         <div id="text-info">
             <div class="text">{{text}}</div>

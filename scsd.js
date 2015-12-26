@@ -29,7 +29,6 @@ if (Meteor.isClient) {
         "submit .new-update": function (event) {
             var text = event.target.text.value;
             var prof_img = event.target.prof_img.value;
-            console.log(prof_img);
 
             Updates.insert({
                 text: text,
@@ -52,6 +51,17 @@ if (Meteor.isClient) {
         "click .toggle-checked": function () {
             // Set the checked property to the opposite of its current value
             Updates.update(this._id, {$set: {checked: ! this.checked}});
+        },
+
+        "click .toggle-crisis": function () {
+            // Set the highlighted property to the opposite of its current value
+            Updates.update(this._id, {$set: {highlighted: ! this.highlighted}});
+
+            // Play sound
+            if (!this.highlighted) {
+                document.getElementById('warning').play();
+            }
+            
         },
         
         "click .delete": function () {
