@@ -1,0 +1,74 @@
+<head>
+    <title>UNSCSD</title>
+    
+    <!-- Font Awesome glyph icons !-->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+    {{> slideshow }}
+    <audio id="chime" src="audio/chime1.wav" preload="auto"></audio>
+    
+    <div class="container">
+        
+        <header>
+            <h1>T.E.R.R.A. Live Crisis Updates</h1>
+            <img id="un-logo" src="terra.png">
+            
+            {{> loginButtons}}
+            
+            {{#if currentUser}}
+                <form class="new-update">
+                    <input type="radio" name="prof_img" value="terra.png" checked="checked" /><img src="terra.png">
+                    <input type="radio" name="prof_img" value="n-news.png" /><img src="n-news.png">
+                    <input type="text" name="text" placeholder="Type to add new update..." />
+                </form>
+            {{/if}}
+        </header>
+
+        <ul>
+            {{#each updates}}
+                {{> update}}
+            {{/each}}
+        </ul>
+    </div>
+</body>
+
+<template name="update">
+    <li id="updateBar" class="{{#if checked}}checked{{/if}}">
+        {{#if currentUser}}
+            <button class="delete">&times;</button>
+            <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+        {{/if}}
+        
+        <img id="news-source" src="{{prof_img}}">
+
+        <div id="text-info">
+            <div class="text">{{text}}</div>
+
+            
+
+            <div id="time">
+                    <i class="fa fa-clock-o"></i> 
+                    {{prettifyDate timestamp}}
+            </div>
+        </div>
+    </li>
+</template>
+
+<template name="slideshow">
+    <ul class="cb-slideshow">
+        <li>
+            <span></span>
+        </li>
+        <li>
+            <span></span>
+        </li>
+        <li>
+            <span></span>
+        </li>
+        <li>
+            <span></span>
+        </li>
+    </ul>
+</template>
